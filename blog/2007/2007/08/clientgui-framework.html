@@ -1,0 +1,94 @@
+<html>
+	<head>
+		<title>Facebook Trumps: The client/GUI Framework.</title>
+		<link href="/trumps.css" rel="stylesheet" type="text/css"/>
+                  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="MSSmartTagsPreventParsing" content="true" />
+<meta name="generator" content="Blogger" />
+<link rel="alternate" type="application/atom+xml" title="Facebook Trumps - Atom" href="http://www.facebooktrumps.com/atom.xml" />
+<link rel="alternate" type="application/rss+xml" title="Facebook Trumps - RSS" href="http://www.facebooktrumps.com/rss.xml" />
+<link rel="service.post" type="application/atom+xml" title="Facebook Trumps - Atom" href="http://www.blogger.com/feeds/431168048244566944/posts/default" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.blogger.com/rsd.g?blogID=431168048244566944" />
+<link rel="alternate" type="application/atom+xml" title="Facebook Trumps - Atom" href="http://www.facebooktrumps.com/atom.xml" />
+<style type="text/css">
+@import url("http://www.blogger.com/css/blog_controls.css");
+@import url("http://www.blogger.com/dyn-css/authorization.css?blogID=431168048244566944");
+</style>
+
+	</head>
+
+<body>
+
+
+<!-- Heading -->
+<div id="header">
+	<h1>
+    <a href="http://www.facebooktrumps.com/">
+	Facebook Trumps
+	</a>
+  </h1>
+	<p id="description"></p>
+</div>
+
+
+<!-- Main Column -->
+<div id="mainClm">
+
+
+<!-- Blog Posts -->
+
+     
+          <h3>19 August 2007</h3>
+     
+     <a name="282561223299920121"></a>
+     <h2>
+The client/GUI Framework.</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>The model view controller pattern is the classic pattern adopted for GUI and client applications (<a href="http://en.wikipedia.org/wiki/Model-view-controller">http://en.wikipedia.org/wiki/Model-view-controller</a>). <span class="blsp-spelling-error" id="SPELLING_ERROR_0">MVC</span> however, is quite a broad pattern, and so I went in search of further detailed recommendations and architectural <span class="blsp-spelling-corrected" id="SPELLING_ERROR_1">guidance</span>. Luckily, Java seems to be a language which is adopted by people with an interest in software engineering principles, therefore a great many resources are <span class="blsp-spelling-corrected" id="SPELLING_ERROR_2">available</span>.<br /><br />The client component needs to obtain a stack of trumps via RPC, compute the various outcomes in the game, communicate rich perspective on the game state to the user and accept interactions from the user. The most appropriate framework I could find is the HMVC (Hierarchical MVC) which is treated at length here: <a href="http://www.javaworld.com/javaworld/jw-07-2000/jw-0721-hmvc.html">http://www.javaworld.com/javaworld/jw-07-2000/jw-0721-hmvc.html</a>.<br /><br />Following MVC principles the view (GWT Widgets) are delineated from the controller (flow logic) and the model (rpc, game logic). HMVC however fills in some of the gaps with respect to how these elements are composed and structured, and how these elements can communicate amongst one another. The heirarchical aspect allows a root controller encapsulating global concerns (such as the game and the trump stack) to control various children, such as turn screens, scoreboards or outcome views.<br /><br />A concrete and usable example of HMVC is availible here, <a href="http://www.thecentric.com/wiki/index.php/HMVC_Tutorial">tp://www.thecentric.com/wiki/index.php/HMVC_Tutorial</a>, which can easily be adapted to work with GWT.<div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/approach.html">approach</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/facebook api.html">facebook api</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/java.html">java</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/clientgui-framework.html" title="permanent link">#</a> posted by Jim Gumbley : 10:52 AM
+          <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=282561223299920121" title="Edit Post"><span class="quick-edit-icon">&nbsp;</span></a></span></div>
+		</div>
+ 
+  <div class="blogComments">
+	<a name="comments"></a>
+			Comments:
+			
+			<div class="blogComment">
+				<a name="553792071278776929"></a> 
+				Thank you for putting your code at<BR/>http://code.google.com/p/facebooktrumps/<BR/>it is very helpful. When you get a chance can you share  ServerSide code that you used to connect to facebook<br />
+				<div class="byline"><a href="http://www.facebooktrumps.com/2007/08/clientgui-framework.html#c553792071278776929"title="permanent link">#</a> posted by <span class="anon-comment-author">Anonymous</span> : December 10, 2007</div>
+				<span class="item-control blog-admin pid-818137183"><a style="border:none;" href="http://www.blogger.com/delete-comment.g?blogID=431168048244566944&postID=553792071278776929" title="Delete Comment" ><span class="delete-comment-icon">&nbsp;</span></a></span>
+			</div>
+			
+			<a class="comment-link" href="http://www.blogger.com/comment.g?blogID=431168048244566944&postID=282561223299920121&isPopup=true" onclick="window.open(this.href, 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;">Post a Comment</a>
+            <p id="postfeeds"></p>
+	  
+        <br /> <br />
+        
+
+	<br /> <br />
+	<a href="http://www.facebooktrumps.com/">&lt;&lt; Home</a>
+    </div>
+
+
+
+</div>
+
+<!-- Sidebar -->
+<div id="sideBar">
+
+<h6>Play Facebook Trumps!</h6>
+<a href="http://www.facebook.com/add.php?api_key=942e1ed844d740f0241265fb4e92764d"><img src="http://www.facebooktrumps.com/img/trumpcard.gif"></a>
+<p>Log into Facebook and add the game as an application!</p>
+
+<h6>Archives</h6>
+<ul>
+ <li><a href='http://www.facebooktrumps.com/2007_08_01_archive.html'>August 2007</a></li><li><a href='http://www.facebooktrumps.com/2007_09_01_archive.html'>September 2007</a></li><li><a href='http://www.facebooktrumps.com/2007_10_01_archive.html'>October 2007</a></li><li><a href='http://www.facebooktrumps.com/2007_11_01_archive.html'>November 2007</a></li> 
+ <script type="text/javascript" language="Javascript">if (location.href.indexOf("archive")!=-1) document.write("<li><strong><a href=\"http://www.facebooktrumps.com/\">Current Posts</a></strong></li>");</script>
+</ul>
+
+</div>
+
+
+</body>
+</html>

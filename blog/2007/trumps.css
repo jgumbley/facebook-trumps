@@ -1,0 +1,186 @@
+BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: #ffffff; PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: 0.9em "lucida grande", tahoma, verdana, arial, sans-serif; COLOR: #000000; PADDING-TOP: 0px
+}
+A {
+	COLOR: #3b5998
+}
+A:hover {
+	COLOR: #3b5998
+}
+IMG {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none
+}
+#logo {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+
+@media All    
+{
+DIV#mainClm {
+	PADDING-RIGHT: 50px; PADDING-LEFT: 5%; FLOAT: left; PADDING-BOTTOM: 10px; WIDTH: 68%; PADDING-TOP: 13px
+}
+DIV#sideBar {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px 1em 0px 0px; PADDING-TOP: 0px; TEXT-ALIGN: right
+}
+
+}
+
+@media Handheld    
+{
+DIV#mainClm {
+	FLOAT: none; WIDTH: 90%
+}
+DIV#sideBar {
+	PADDING-RIGHT: 50px; PADDING-LEFT: 5%; PADDING-BOTTOM: 10px; PADDING-TOP: 13px; TEXT-ALIGN: left
+}
+    }
+#header {
+	PADDING-RIGHT: 0px; BORDER-TOP: #6d84b4 2px solid; PADDING-LEFT: 0px; BACKGROUND: #6d84b4; PADDING-BOTTOM: 8px; MARGIN: 0px 0px 20px; COLOR: #3b5998; PADDING-TOP: 0px; BORDER-BOTTOM: #eeeeee 1px solid
+}
+H1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+H3 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+H4 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+H5 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+H6 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+H1 A:link {
+	COLOR: #fffafa; TEXT-DECORATION: none
+}
+H1 A:visited {
+	COLOR: #fffafa; TEXT-DECORATION: none
+}
+H1 {
+	PADDING-RIGHT: 0px; BORDER-TOP: #3b5998 9px solid; PADDING-LEFT: 5%; FONT-WEIGHT: bold; FONT-SIZE: 266%; BACKGROUND: #3b5998; PADDING-BOTTOM: 10px; MARGIN: 0px 0px 8px; COLOR: white; LINE-HEIGHT: normal; PADDING-TOP: 18px; BORDER-BOTTOM: #3b5998 1px solid; FONT-STYLE: normal; FONT-VARIANT: normal
+}
+H2 {
+	BORDER-RIGHT: #f5f5f5 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #f5f5f5 1px solid; PADDING-LEFT: 5px; FONT-WEIGHT: bold; FONT-SIZE: 110%; BACKGROUND: #eeeeee; PADDING-BOTTOM: 2px; MARGIN: 0px 0px 10px; BORDER-LEFT: #f5f5f5 1px solid; COLOR: #555555; LINE-HEIGHT: normal; PADDING-TOP: 2px; BORDER-BOTTOM: #dddddd 1px solid; FONT-STYLE: normal; FONT-VARIANT: normal
+}
+H3 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 2%; FONT-SIZE: 90%; PADDING-BOTTOM: 0px; MARGIN: 10px 0px 0px; COLOR: #777777; PADDING-TOP: 0px; BORDER-BOTTOM: #cccccc 1px dotted; TEXT-ALIGN: left
+}
+H4 {
+	COLOR: #aa0033
+}
+H6 {
+	FONT: bold 125% "lucida grande", tahoma, verdana, arial, sans-serif; COLOR: black
+}
+H2.sidebar-title {
+	BORDER-RIGHT: medium none; PADDING-RIGHT: 0px; BORDER-TOP: medium none; PADDING-LEFT: 0px; BACKGROUND: #ffffff; PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: bold 125% "lucida grande", tahoma, verdana, arial, sans-serif; BORDER-LEFT: medium none; COLOR: #ff4500; PADDING-TOP: 0px; BORDER-BOTTOM: medium none
+}
+#sideBar {
+	TEXT-ALIGN: left
+}
+#sideBar UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 95%; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 33px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+#sideBar LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 105%; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+#description {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 5%; BACKGROUND: none transparent scroll repeat 0% 0%; PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: bold 85% Verdana,Sans-Serif; COLOR: #9e5205; PADDING-TOP: 0px
+}
+.blogPost {
+	FONT-SIZE: 100%; MARGIN: 0px 6px 30px 5px
+}
+.blogPost STRONG {
+	FONT-WEIGHT: bold; COLOR: #000000
+}
+#sideBar UL A {
+	BORDER-RIGHT: medium none; PADDING-RIGHT: 2px; BORDER-TOP: medium none; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; MARGIN: 1px; BORDER-LEFT: medium none; WIDTH: 100%; COLOR: #999999; PADDING-TOP: 2px; BORDER-BOTTOM: medium none; TEXT-DECORATION: none
+}
+#sideBar UL A:link {
+	COLOR: #999999
+}
+#sideBar UL A:visited {
+	COLOR: #999999
+}
+#sideBar UL A:active {
+	COLOR: #ff0000
+}
+#sideBar UL A:hover {
+	COLOR: #de7008; TEXT-DECORATION: none
+}
+PRE {
+	COLOR: #999999
+}
+CODE {
+	COLOR: #999999
+}
+STRIKE {
+	COLOR: #999999
+}
+.bug {
+	BORDER-RIGHT: 0px; PADDING-RIGHT: 5px; BORDER-TOP: 0px; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; BORDER-LEFT: 0px; PADDING-TOP: 5px; BORDER-BOTTOM: 0px
+}
+.byline {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 80%; PADDING-BOTTOM: 0px; MARGIN: 0px; COLOR: black; PADDING-TOP: 0px
+}
+.byline A {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; COLOR: black; BORDER-BOTTOM: medium none; TEXT-DECORATION: none
+}
+.byline A:hover {
+	TEXT-DECORATION: underline
+}
+.blogComments {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 5px; FONT-WEIGHT: bold; FONT-SIZE: 110%; PADDING-BOTTOM: 2px; COLOR: #555555; PADDING-TOP: 2px; FONT-FAMILY: "lucida grande", tahoma, verdana, arial, sans-serif
+}
+.blogComment {
+	MARGIN-TOP: 10px; FONT-WEIGHT: normal; FONT-SIZE: 100%; COLOR: black
+}
+.blogComments .byline {
+	PADDING-RIGHT: 0px; DISPLAY: inline; PADDING-LEFT: 0px; FONT-WEIGHT: normal; FONT-SIZE: 80%; MARGIN-BOTTOM: 20px; PADDING-BOTTOM: 0px; COLOR: #444444; MARGIN-RIGHT: 10px; PADDING-TOP: 0px
+}
+.deleted-comment {
+	COLOR: gray; FONT-STYLE: italic
+}
+#profile-container {
+	
+}
+.profile-datablock {
+	TEXT-ALIGN: justify
+}
+.profile-img {
+	
+}
+.profile-img IMG {
+	FLOAT: right; MARGIN-LEFT: 5px
+}
+.profile-data STRONG {
+	
+}
+#profile-container P {
+	
+}
+#profile-container .profile-textblock {
+	TEXT-ALIGN: justify
+}
+.profile-link A:link {
+	COLOR: #999999; TEXT-DECORATION: none
+}
+.profile-link A:active {
+	COLOR: #ff0000; TEXT-DECORATION: none
+}
+.profile-link A:visited {
+	COLOR: #999999; TEXT-DECORATION: none
+}
+.profile-link A:hover {
+	COLOR: #de7008; TEXT-DECORATION: none
+}
+#blogfeeds {
+	
+}
+#postfeeds {
+	FONT-SIZE: 100%
+}

@@ -1,0 +1,98 @@
+<html>
+	<head>
+		<title>Facebook Trumps</title>
+		<link href="/trumps.css" rel="stylesheet" type="text/css"/>
+                  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="MSSmartTagsPreventParsing" content="true" />
+<meta name="generator" content="Blogger" />
+<link rel="icon" type="image/vnd.microsoft.icon" href="http://www.blogger.com/favicon.ico"/>
+<link rel="alternate" type="application/atom+xml" title="Facebook Trumps - Atom" href="http://www.facebooktrumps.com/atom.xml" />
+<link rel="alternate" type="application/rss+xml" title="Facebook Trumps - RSS" href="http://www.facebooktrumps.com/rss.xml" />
+<link rel="service.post" type="application/atom+xml" title="Facebook Trumps - Atom" href="http://www.blogger.com/feeds/431168048244566944/posts/default" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.blogger.com/rsd.g?blogID=431168048244566944" />
+ <link rel="stylesheet" type="text/css" href="http://www.blogger.com/css/blog_controls.css"/> <link rel="stylesheet" type="text/css" href="http://www.blogger.com/dyn-css/authorization.css?targetBlogID=431168048244566944&zx=ec5c99df-3aa1-423d-97fa-77caaaa5813c"/>
+	<link rel="me" href="http://www.blogger.com/profile/12570823683366887121" />
+<link rel="openid.server" href="http://www.blogger.com/openid-server.g" />
+</head>
+
+<body>
+
+
+<!-- Heading -->
+<div id="header">
+	<h1>
+    
+	Facebook Trumps
+	
+  </h1>
+	<p id="description"></p>
+</div>
+
+
+<!-- Main Column -->
+<div id="mainClm">
+
+
+<!-- Blog Posts -->
+
+     
+          <h3>02 September 2007</h3>
+     
+     <a name="7785277419234865452"></a>
+     <h2>
+Third Version of the Game</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>I now have a "working and complete game component". I am going to deploy it to the server and perhaps get some people to try it. The architecture and logic of the application I am pleased with, however the look and feel of it is quite ropey! I need to engage in a process of gentrifying the game, which due to the component based architecture will be straight-forward.<br /><br />For the next version of the game, which I would want to be of a sort of "beta" quality I am after the following:<br /><br /><ul><li>More on the server-side. I'm already using Guice (<a href="http://code.google.com/p/google-guice/">http://code.google.com/p/google-guice/</a>), but I want to add things like persistence, for the game scores etc, but also to keep track of users who have successfully accessed the game (just their names and UIDs).</li><li>Look and feel. I need it look more polished, I want to present an option to go "full screen", using a maximized browser window with just a control bar and URL field. Need more ques for the user to orient them to where they are in the game. Especially need to be more clear during opponents turn.</li><li>Iron out issues which arise from testing. I need other people to test it live off the server and see what issues it throws up. </li><li>Client Side Refactoring - I am tempted to make some alterations to the Event code and some major work on the EventCapableComposite which all the View components inherit from. Also to move the framework code into its own package.</li></ul><div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/facebook api.html">facebook api</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/guice.html">guice</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/hmvc.html">hmvc</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/java.html">java</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/09/third-version-of-game.html" title="permanent link">#</a> posted by Jim Gumbley : 12:30 PM
+         &nbsp;<a href="https://www.blogger.com/comment.g?blogID=431168048244566944&postID=7785277419234865452&isPopup=true" onclick="window.open('https://www.blogger.com/comment.g?blogID=431168048244566944&postID=7785277419234865452&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=7785277419234865452" title="Edit Post"><img class="icon-action" alt="" src="http://www.blogger.com:80/img/icon18_edit_allbkg.gif" height="18" width="18"></a></span></div>
+		</div>
+ 
+
+     
+          <h3>19 August 2007</h3>
+     
+     <a name="2177542815212916664"></a>
+     <h2>
+Overlaying application flow onto HMVC</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div><p>I need to put the conclusions of the past two posts together- I need to decompose the application structure implied by my flow diagram into a set of HMVC triads as described below.</p><p>The top level triad will have responsibility for moving the application from one phase, i.e. the game creation stage or the end game stage, to the next, and also for providing RPC functionality - I don't want that kind of code just spotted round the place. The Root/Container Triad: </p><ul><li>Model: Contains RPC methods and global state.</li><li>View: Practically none - contains "Loading..." view.</li><li>Controller: Co-ordinates transistions from one Triad to another.</li></ul><p>After the Root triad has obtained the stack of Trumps for that appropriate player, it creates a child Triad to "setup" the game: The Create Game Triad:</p><ul><li>Model: Instantiate Game, Set players, Shuffle cards, Deal Cards, Toss Coin.</li><li>View: Welcome and display outcome of game initialisation. </li></ul><p>Next the Create Game Triad signals it is finished and the Root controller destroys that entire triad, replacing it with the Game Triad, which again is a child of the root controller. Due to the complexities of this view it is decomposed into further HMVC triads which are orchestrated by the Game Triad Controller:</p><ul><li>Player Turn VC Triad</li><li>Opponent Turn VC Triad</li><li>Show Result VC Triad</li></ul><p>These are "cut-d0wn" HMVC triads, consisting only a view and a controller. All of the model code however is contained within the higher level Play Game Triad. Messages are passed between components and the Play Game Controller will create and destroy the alternate child Triads as required. Therefore the Play Game Triad looks like this:</p><ul><li>Model: Evaluate winner of turn functionality, Determine if game has been won functionality. </li><li>View- Several View/Controller Triads as above.</li><li>Controller: Manage interactions between all these! Create/Destroy child Triads.</li></ul><p>Finally there is a End Game Triad to display the winner of the game and offer the oppotunity to return to the beginning of the game.</p><ul><li>Model: Send result via RPC (I will actually leave this until the next iteration of the game).</li><li>View: Show End Result.</li><li>Controller: Allow to go back to the start.</li></ul><p>The structure described above will allow me to decompose my code into disgestible modular chunks and also due to the separation of functionality and standardisation of messaging will allow easy modification and improvement later. It won't be a matt of spaghetti.</p><div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/approach.html">approach</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/facebook api.html">facebook api</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/hmvc.html">hmvc</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/java.html">java</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/overlaying-application-flow-onto-hmvc.html" title="permanent link">#</a> posted by Jim Gumbley : 12:58 PM
+         &nbsp;<a href="https://www.blogger.com/comment.g?blogID=431168048244566944&postID=2177542815212916664&isPopup=true" onclick="window.open('https://www.blogger.com/comment.g?blogID=431168048244566944&postID=2177542815212916664&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=2177542815212916664" title="Edit Post"><img class="icon-action" alt="" src="http://www.blogger.com:80/img/icon18_edit_allbkg.gif" height="18" width="18"></a></span></div>
+		</div>
+ 
+
+     
+     <a name="9141475632627686626"></a>
+     <h2>
+Application flow</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>Again, with the aim of getting things straight in my mind, here is very rough and broad grained flow chart of how the client will work.<br /><img src="http://www.facebooktrumps.com/img/trumps_app_flow.png" /><div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/facebook api.html">facebook api</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/hmvc.html">hmvc</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/java.html">java</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/application-flow.html" title="permanent link">#</a> posted by Jim Gumbley : 12:34 PM
+         &nbsp;<a href="https://www.blogger.com/comment.g?blogID=431168048244566944&postID=9141475632627686626&isPopup=true" onclick="window.open('https://www.blogger.com/comment.g?blogID=431168048244566944&postID=9141475632627686626&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=9141475632627686626" title="Edit Post"><img class="icon-action" alt="" src="http://www.blogger.com:80/img/icon18_edit_allbkg.gif" height="18" width="18"></a></span></div>
+		</div>
+ 
+
+
+</div>
+
+<!-- Sidebar -->
+<div id="sideBar">
+
+<h6>Play Facebook Trumps!</h6>
+<a href="http://www.facebook.com/add.php?api_key=942e1ed844d740f0241265fb4e92764d"><img src="http://www.facebooktrumps.com/img/trumpcard.gif"></a>
+<p>Log into Facebook and add the game as an application!</p>
+
+<h6>Archives</h6>
+<ul>
+ <li><a href='http://www.facebooktrumps.com/2007_08_01_archive.html'>August 2007</a></li><li><a href='http://www.facebooktrumps.com/2007_09_01_archive.html'>September 2007</a></li><li><a href='http://www.facebooktrumps.com/2007_10_01_archive.html'>October 2007</a></li><li><a href='http://www.facebooktrumps.com/2007_11_01_archive.html'>November 2007</a></li> 
+ <script type="text/javascript" language="Javascript">if (location.href.indexOf("archive")!=-1) document.write("<li><strong><a href=\"http://www.facebooktrumps.com/\">Current Posts</a></strong></li>");</script>
+</ul>
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+<html>
+	<head>
+		<title>Facebook Trumps</title>
+		<link href="/trumps.css" rel="stylesheet" type="text/css"/>
+                  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="MSSmartTagsPreventParsing" content="true" />
+<meta name="generator" content="Blogger" />
+<link rel="icon" type="image/vnd.microsoft.icon" href="http://www.blogger.com/favicon.ico"/>
+<link rel="alternate" type="application/atom+xml" title="Facebook Trumps - Atom" href="http://www.facebooktrumps.com/atom.xml" />
+<link rel="alternate" type="application/rss+xml" title="Facebook Trumps - RSS" href="http://www.facebooktrumps.com/rss.xml" />
+<link rel="service.post" type="application/atom+xml" title="Facebook Trumps - Atom" href="http://www.blogger.com/feeds/431168048244566944/posts/default" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.blogger.com/rsd.g?blogID=431168048244566944" />
+ <link rel="stylesheet" type="text/css" href="http://www.blogger.com/css/blog_controls.css"/> <link rel="stylesheet" type="text/css" href="http://www.blogger.com/dyn-css/authorization.css?targetBlogID=431168048244566944&zx=ec5c99df-3aa1-423d-97fa-77caaaa5813c"/>
+	<link rel="me" href="http://www.blogger.com/profile/12570823683366887121" />
+<link rel="openid.server" href="http://www.blogger.com/openid-server.g" />
+</head>
+
+<body>
+
+
+<!-- Heading -->
+<div id="header">
+	<h1>
+    
+	Facebook Trumps
+	
+  </h1>
+	<p id="description"></p>
+</div>
+
+
+<!-- Main Column -->
+<div id="mainClm">
+
+
+<!-- Blog Posts -->
+
+     
+          <h3>08 September 2007</h3>
+     
+     <a name="3700014064548916414"></a>
+     <h2>
+Broken Window Number 1: Replaced.</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>I had a strange bug in the client part, which only occured when running the code after it was compiled to Javascript by GWT (<a href="http://code.google.com/webtoolkit/documentation/com.google.gwt.doc.DeveloperGuide.Fundamentals.WebMode.html">GWT Web mode</a>) and not when running in hosted mode (<a href="http://code.google.com/webtoolkit/documentation/com.google.gwt.doc.DeveloperGuide.Fundamentals.HostedMode.html">GWT Hosted mode</a>). It was a pain to pinpoint the location of the error - I had to place popup messages stepped through the application to determine its location as all I got from the browser was "uncaught exception" and a GUI which failed to display. When I ran it in Hosted with the Eclipse debugger for support, well it was pointless as it worked perfectly.<br /><br />I discovered the problem was with the code which deals the cards to the two players. This makes use of the .clone() method of the TrumpStack object, basically just an Arraylist which represents the stack of Trump Cards. Another method shuffles the cards, the deal method then gives the entire card deck to to player, clones a copy to the opponent, deletes the top half of the cards from the players deck and the bottom half from the opponent's deck.<br /><br /><br /><span style="font-family:courier new;font-size:85%;">private void dealPack() {<br /><span style="color:#009900;">// Give opponent half cards.<br /></span>_session.setOpponentStack((TrumpStack) _session.getPlayerStack().<span style="color:#ff0000;">clone()</span><span style="color:#000000;">);</span><br />_session.getOpponentStack().clearFirstHalf();<br />_session.getPlayerStack().clearLastHalf();<br />}</span><br /><br />Turns out the behaviour of .clone() differs between web-mode and hosted. In the hosted implementation .clone() makes a copy of the TrumpStack object (which is basically an Arraylist) and all the elements too. In the web mode version the elements are not cloned but just the object (?!). This is doubly odd as the Sun API (</span><a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/ArrayList.html#clone()">Sun API Documentation</a>) implies that the web behaviour is correct, although when running in Java that is not what happened.<br /><br />What happens is, when the code accesses the first card in the opponent's stack of cards it gets a null value, which causes an error in Javascript. That at least, in the absence of better Javascript debugging tools, is what I think is happening.<br /><br />In any case I have implemented my own method called .copy() which does copy all the elements, which I have then been able to give a return type of TrumpStack, getting rid of the need to cast in the dealing code above. I have also place a check for nullity in method which accesses the opponents first card. This might happen for example if the player only has one friend.<div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/java.html">java</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/javascript.html">javascript</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/09/broken-window-number-1-replaced.html" title="permanent link">#</a> posted by Jim Gumbley : 6:27 PM
+         &nbsp;<a href="https://www.blogger.com/comment.g?blogID=431168048244566944&postID=3700014064548916414&isPopup=true" onclick="window.open('https://www.blogger.com/comment.g?blogID=431168048244566944&postID=3700014064548916414&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=3700014064548916414" title="Edit Post"><img class="icon-action" alt="" src="http://www.blogger.com:80/img/icon18_edit_allbkg.gif" height="18" width="18"></a></span></div>
+		</div>
+ 
+
+     
+     <a name="4577040621715473158"></a>
+     <h2>
+Google Code</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>I've created a Google Code project and put all the source code of my Facebook Trumps game onto it.<br /><br /><a href="http://code.google.com/p/facebooktrumps/">http://code.google.com/p/facebooktrumps/</a><div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/google code.html">google code</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/java.html">java</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/09/google-code.html" title="permanent link">#</a> posted by Jim Gumbley : 4:46 PM
+         &nbsp;<a href="https://www.blogger.com/comment.g?blogID=431168048244566944&postID=4577040621715473158&isPopup=true" onclick="window.open('https://www.blogger.com/comment.g?blogID=431168048244566944&postID=4577040621715473158&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">1 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=4577040621715473158" title="Edit Post"><img class="icon-action" alt="" src="http://www.blogger.com:80/img/icon18_edit_allbkg.gif" height="18" width="18"></a></span></div>
+		</div>
+ 
+
+     
+          <h3>02 September 2007</h3>
+     
+     <a name="8178744721333989576"></a>
+     <h2>
+Broken Windows</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>I read the following from a book on Safari (<a href="http://safari.oreilly.com/">http://safari.oreilly.com/</a>):<br /><blockquote><p>One broken window<a name="length of"></a>, left unrepaired for any substantial length of time, instills in the inhabitants of the building a sense of abandonment- a sense that the powers that be don't care about the building. So another window gets broken<a name="short space"></a>. People start littering. Graffiti appears. Serious structural damage begins. In a relatively short space of time, the building becomes damaged beyond the owner's desire to fix it, and the sense of abandonment becomes reality.<br /><br />Don't leave "broken<a name="is discovered"></a> windows" (bad designs, wrong decisions, or poor code) unrepaired. Fix each one as soon as it is discovered. If there is insufficient time to fix it properly, then <a name="board it"></a>board it up.<a name="out the"></a> Perhaps you can comment out the offending code, or display a "Not Implemented" message, or substitute dummy data instead. Take some<a name="prevent further"></a> action to prevent further damage and to show that you're on top of the situation.</p></blockquote><br />This seems like wisdom to me and at this point in the project I need to focus on this implications of it. Before I start on adding the new features I need to deploy and iron all the creases out of the current version.<div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/approach.html">approach</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/guice.html">guice</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/java.html">java</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/09/broken-windows.html" title="permanent link">#</a> posted by Jim Gumbley : 3:44 PM
+         &nbsp;<a href="https://www.blogger.com/comment.g?blogID=431168048244566944&postID=8178744721333989576&isPopup=true" onclick="window.open('https://www.blogger.com/comment.g?blogID=431168048244566944&postID=8178744721333989576&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=8178744721333989576" title="Edit Post"><img class="icon-action" alt="" src="http://www.blogger.com:80/img/icon18_edit_allbkg.gif" height="18" width="18"></a></span></div>
+		</div>
+ 
+
+     
+     <a name="7785277419234865452"></a>
+     <h2>
+Third Version of the Game</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>I now have a "working and complete game component". I am going to deploy it to the server and perhaps get some people to try it. The architecture and logic of the application I am pleased with, however the look and feel of it is quite ropey! I need to engage in a process of gentrifying the game, which due to the component based architecture will be straight-forward.<br /><br />For the next version of the game, which I would want to be of a sort of "beta" quality I am after the following:<br /><br /><ul><li>More on the server-side. I'm already using Guice (<a href="http://code.google.com/p/google-guice/">http://code.google.com/p/google-guice/</a>), but I want to add things like persistence, for the game scores etc, but also to keep track of users who have successfully accessed the game (just their names and UIDs).</li><li>Look and feel. I need it look more polished, I want to present an option to go "full screen", using a maximized browser window with just a control bar and URL field. Need more ques for the user to orient them to where they are in the game. Especially need to be more clear during opponents turn.</li><li>Iron out issues which arise from testing. I need other people to test it live off the server and see what issues it throws up. </li><li>Client Side Refactoring - I am tempted to make some alterations to the Event code and some major work on the EventCapableComposite which all the View components inherit from. Also to move the framework code into its own package.</li></ul><div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/facebook api.html">facebook api</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/guice.html">guice</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/hmvc.html">hmvc</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/java.html">java</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/09/third-version-of-game.html" title="permanent link">#</a> posted by Jim Gumbley : 12:30 PM
+         &nbsp;<a href="https://www.blogger.com/comment.g?blogID=431168048244566944&postID=7785277419234865452&isPopup=true" onclick="window.open('https://www.blogger.com/comment.g?blogID=431168048244566944&postID=7785277419234865452&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=7785277419234865452" title="Edit Post"><img class="icon-action" alt="" src="http://www.blogger.com:80/img/icon18_edit_allbkg.gif" height="18" width="18"></a></span></div>
+		</div>
+ 
+
+     
+          <h3>19 August 2007</h3>
+     
+     <a name="2177542815212916664"></a>
+     <h2>
+Overlaying application flow onto HMVC</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div><p>I need to put the conclusions of the past two posts together- I need to decompose the application structure implied by my flow diagram into a set of HMVC triads as described below.</p><p>The top level triad will have responsibility for moving the application from one phase, i.e. the game creation stage or the end game stage, to the next, and also for providing RPC functionality - I don't want that kind of code just spotted round the place. The Root/Container Triad: </p><ul><li>Model: Contains RPC methods and global state.</li><li>View: Practically none - contains "Loading..." view.</li><li>Controller: Co-ordinates transistions from one Triad to another.</li></ul><p>After the Root triad has obtained the stack of Trumps for that appropriate player, it creates a child Triad to "setup" the game: The Create Game Triad:</p><ul><li>Model: Instantiate Game, Set players, Shuffle cards, Deal Cards, Toss Coin.</li><li>View: Welcome and display outcome of game initialisation. </li></ul><p>Next the Create Game Triad signals it is finished and the Root controller destroys that entire triad, replacing it with the Game Triad, which again is a child of the root controller. Due to the complexities of this view it is decomposed into further HMVC triads which are orchestrated by the Game Triad Controller:</p><ul><li>Player Turn VC Triad</li><li>Opponent Turn VC Triad</li><li>Show Result VC Triad</li></ul><p>These are "cut-d0wn" HMVC triads, consisting only a view and a controller. All of the model code however is contained within the higher level Play Game Triad. Messages are passed between components and the Play Game Controller will create and destroy the alternate child Triads as required. Therefore the Play Game Triad looks like this:</p><ul><li>Model: Evaluate winner of turn functionality, Determine if game has been won functionality. </li><li>View- Several View/Controller Triads as above.</li><li>Controller: Manage interactions between all these! Create/Destroy child Triads.</li></ul><p>Finally there is a End Game Triad to display the winner of the game and offer the oppotunity to return to the beginning of the game.</p><ul><li>Model: Send result via RPC (I will actually leave this until the next iteration of the game).</li><li>View: Show End Result.</li><li>Controller: Allow to go back to the start.</li></ul><p>The structure described above will allow me to decompose my code into disgestible modular chunks and also due to the separation of functionality and standardisation of messaging will allow easy modification and improvement later. It won't be a matt of spaghetti.</p><div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/approach.html">approach</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/facebook api.html">facebook api</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/hmvc.html">hmvc</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/java.html">java</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/overlaying-application-flow-onto-hmvc.html" title="permanent link">#</a> posted by Jim Gumbley : 12:58 PM
+         &nbsp;<a href="https://www.blogger.com/comment.g?blogID=431168048244566944&postID=2177542815212916664&isPopup=true" onclick="window.open('https://www.blogger.com/comment.g?blogID=431168048244566944&postID=2177542815212916664&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=2177542815212916664" title="Edit Post"><img class="icon-action" alt="" src="http://www.blogger.com:80/img/icon18_edit_allbkg.gif" height="18" width="18"></a></span></div>
+		</div>
+ 
+
+     
+     <a name="9141475632627686626"></a>
+     <h2>
+Application flow</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>Again, with the aim of getting things straight in my mind, here is very rough and broad grained flow chart of how the client will work.<br /><img src="http://www.facebooktrumps.com/img/trumps_app_flow.png" /><div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/facebook api.html">facebook api</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/hmvc.html">hmvc</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/java.html">java</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/application-flow.html" title="permanent link">#</a> posted by Jim Gumbley : 12:34 PM
+         &nbsp;<a href="https://www.blogger.com/comment.g?blogID=431168048244566944&postID=9141475632627686626&isPopup=true" onclick="window.open('https://www.blogger.com/comment.g?blogID=431168048244566944&postID=9141475632627686626&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=9141475632627686626" title="Edit Post"><img class="icon-action" alt="" src="http://www.blogger.com:80/img/icon18_edit_allbkg.gif" height="18" width="18"></a></span></div>
+		</div>
+ 
+
+     
+     <a name="282561223299920121"></a>
+     <h2>
+The client/GUI Framework.</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>The model view controller pattern is the classic pattern adopted for GUI and client applications (<a href="http://en.wikipedia.org/wiki/Model-view-controller">http://en.wikipedia.org/wiki/Model-view-controller</a>). <span class="blsp-spelling-error" id="SPELLING_ERROR_0">MVC</span> however, is quite a broad pattern, and so I went in search of further detailed recommendations and architectural <span class="blsp-spelling-corrected" id="SPELLING_ERROR_1">guidance</span>. Luckily, Java seems to be a language which is adopted by people with an interest in software engineering principles, therefore a great many resources are <span class="blsp-spelling-corrected" id="SPELLING_ERROR_2">available</span>.<br /><br />The client component needs to obtain a stack of trumps via RPC, compute the various outcomes in the game, communicate rich perspective on the game state to the user and accept interactions from the user. The most appropriate framework I could find is the HMVC (Hierarchical MVC) which is treated at length here: <a href="http://www.javaworld.com/javaworld/jw-07-2000/jw-0721-hmvc.html">http://www.javaworld.com/javaworld/jw-07-2000/jw-0721-hmvc.html</a>.<br /><br />Following MVC principles the view (GWT Widgets) are delineated from the controller (flow logic) and the model (rpc, game logic). HMVC however fills in some of the gaps with respect to how these elements are composed and structured, and how these elements can communicate amongst one another. The heirarchical aspect allows a root controller encapsulating global concerns (such as the game and the trump stack) to control various children, such as turn screens, scoreboards or outcome views.<br /><br />A concrete and usable example of HMVC is availible here, <a href="http://www.thecentric.com/wiki/index.php/HMVC_Tutorial">tp://www.thecentric.com/wiki/index.php/HMVC_Tutorial</a>, which can easily be adapted to work with GWT.<div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/approach.html">approach</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/facebook api.html">facebook api</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/java.html">java</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/clientgui-framework.html" title="permanent link">#</a> posted by Jim Gumbley : 10:52 AM
+         &nbsp;<a href="https://www.blogger.com/comment.g?blogID=431168048244566944&postID=282561223299920121&isPopup=true" onclick="window.open('https://www.blogger.com/comment.g?blogID=431168048244566944&postID=282561223299920121&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">1 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=282561223299920121" title="Edit Post"><img class="icon-action" alt="" src="http://www.blogger.com:80/img/icon18_edit_allbkg.gif" height="18" width="18"></a></span></div>
+		</div>
+ 
+
+     
+          <h3>12 August 2007</h3>
+     
+     <a name="8589511600325564304"></a>
+     <h2>
+Client Side Technologies.</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>Facebook Trumps is a game, which would imply quite a great deal of interaction between the user and the web application. For scalability reasons I wanted the client part of the web application, running in the browser, to do a lot of the work. If a HTTP roundtrip is required everytime an action occurs or decision needs to be made my server is going to get very busy.<br /><br />This implies quite a "fat" client, however the option I was anxious to avoid was applets (<a href="http://java.sun.com/applets/">http://java.sun.com/applets/</a>). I've seen some applets which work well - but their major pitfall is that they are basically desktop applications- albeit running in a sandbox spawned "through" a browser. Also you that "clunk" delay as the JVM initialises and the applet loads (that is if the user has a JVM installed!).<br /><br />Much better to my mind is the Google Web Toolkit (<a href="http://code.google.com/webtoolkit/">http://code.google.com/webtoolkit/</a>). GWT allows GUI and other code written in the Java language to be compiled down to Javascript and then run through a browser. This seems an ideal approach for this problem, given that I have decided on Java. Any standards based browser can display the interface created, and yet I can work in the Java language.<div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/applets.html">applets</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/scalability.html">scalability</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/client-side-technologies.html" title="permanent link">#</a> posted by Jim Gumbley : 10:40 PM
+         &nbsp;<a href="https://www.blogger.com/comment.g?blogID=431168048244566944&postID=8589511600325564304&isPopup=true" onclick="window.open('https://www.blogger.com/comment.g?blogID=431168048244566944&postID=8589511600325564304&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=8589511600325564304" title="Edit Post"><img class="icon-action" alt="" src="http://www.blogger.com:80/img/icon18_edit_allbkg.gif" height="18" width="18"></a></span></div>
+		</div>
+ 
+
+     
+     <a name="1307163609733435482"></a>
+     <h2>
+Language Choice: Java</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>Plain HTML would not cut it for an interactive Trumps game. Many alternate web technologies exist however, many choices. For the client the instant favorite is Flash (<a href="http://en.wikipedia.org/wiki/Macromedia_Flash">http://en.wikipedia.org/wiki/Macromedia_Flash</a>) and for the server most straightforward would be PHP (<a href="http://en.wikipedia.org/wiki/Php">http://en.wikipedia.org/wiki/Php</a>).<br /><br />I chose Java. Java is a "proper" programming language - it is object oriented, typesafe and it is backed by two massive corporations (<a href="http://java.sun.com/">http://java.sun.com/</a> and <a href="http://www.ibm.com/developerworks/java">http://www.ibm.com/developerworks/java</a>). As I see in my day to day job massive corporations use Java to create complex business systems.<br /><br />Skills gained in this language I believe will have more value than more lightweight languages such as PHP or "designer" oriented packages like Flash. Java is also free, unlike .Net, but very similar both in syntax and architecture (<a href="http://www.google.com/search?q=java+c%23">http://www.google.com/search?q=java+c%23</a>).<br /><br />The real alternate which offered itself was Ruby, or its web component, Rails (<a href="http://www.rubyonrails.org/">http://www.rubyonrails.org/</a>). So many comments about this language rave about it and say how productive it is, and how it encourages you not to reinvent wheels. Both of these arguments are tempting, however for now I feel Java is more established, and for now, a better skill to learn.<div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/.net.html">.net</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/flash.html">flash</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/java.html">java</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/php.html">php</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/platform-choice-java.html" title="permanent link">#</a> posted by Jim Gumbley : 3:59 PM
+         &nbsp;<a href="https://www.blogger.com/comment.g?blogID=431168048244566944&postID=1307163609733435482&isPopup=true" onclick="window.open('https://www.blogger.com/comment.g?blogID=431168048244566944&postID=1307163609733435482&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=1307163609733435482" title="Edit Post"><img class="icon-action" alt="" src="http://www.blogger.com:80/img/icon18_edit_allbkg.gif" height="18" width="18"></a></span></div>
+		</div>
+ 
+
+
+</div>
+
+<!-- Sidebar -->
+<div id="sideBar">
+
+<h6>Play Facebook Trumps!</h6>
+<a href="http://www.facebook.com/add.php?api_key=942e1ed844d740f0241265fb4e92764d"><img src="http://www.facebooktrumps.com/img/trumpcard.gif"></a>
+<p>Log into Facebook and add the game as an application!</p>
+
+<h6>Archives</h6>
+<ul>
+ <li><a href='http://www.facebooktrumps.com/2007_08_01_archive.html'>August 2007</a></li><li><a href='http://www.facebooktrumps.com/2007_09_01_archive.html'>September 2007</a></li><li><a href='http://www.facebooktrumps.com/2007_10_01_archive.html'>October 2007</a></li><li><a href='http://www.facebooktrumps.com/2007_11_01_archive.html'>November 2007</a></li> 
+ <script type="text/javascript" language="Javascript">if (location.href.indexOf("archive")!=-1) document.write("<li><strong><a href=\"http://www.facebooktrumps.com/\">Current Posts</a></strong></li>");</script>
+</ul>
+
+</div>
+
+
+</body>
+</html>

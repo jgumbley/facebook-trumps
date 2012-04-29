@@ -1,0 +1,223 @@
+<html>
+	<head>
+		<title>Facebook Trumps: August 2007</title>
+		<link href="/trumps.css" rel="stylesheet" type="text/css"/>
+                  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="MSSmartTagsPreventParsing" content="true" />
+<meta name="generator" content="Blogger" />
+<link rel="alternate" type="application/atom+xml" title="Facebook Trumps - Atom" href="http://www.facebooktrumps.com/atom.xml" />
+<link rel="alternate" type="application/rss+xml" title="Facebook Trumps - RSS" href="http://www.facebooktrumps.com/rss.xml" />
+<link rel="service.post" type="application/atom+xml" title="Facebook Trumps - Atom" href="http://www.blogger.com/feeds/431168048244566944/posts/default" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.blogger.com/rsd.g?blogID=431168048244566944" />
+<style type="text/css">
+@import url("http://www.blogger.com/css/blog_controls.css");
+@import url("http://www.blogger.com/dyn-css/authorization.css?blogID=431168048244566944");
+</style>
+
+	</head>
+
+<body>
+
+
+<!-- Heading -->
+<div id="header">
+	<h1>
+    
+	Facebook Trumps
+	
+  </h1>
+	<p id="description"></p>
+</div>
+
+
+<!-- Main Column -->
+<div id="mainClm">
+
+
+<!-- Blog Posts -->
+
+     
+          <h3>19 August 2007</h3>
+     
+     <a name="2177542815212916664"></a>
+     <h2>
+Overlaying application flow onto HMVC</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div><p>I need to put the conclusions of the past two posts together- I need to decompose the application structure implied by my flow diagram into a set of HMVC triads as described below.</p><p>The top level triad will have responsibility for moving the application from one phase, i.e. the game creation stage or the end game stage, to the next, and also for providing RPC functionality - I don't want that kind of code just spotted round the place. The Root/Container Triad: </p><ul><li>Model: Contains RPC methods and global state.</li><li>View: Practically none - contains "Loading..." view.</li><li>Controller: Co-ordinates transistions from one Triad to another.</li></ul><p>After the Root triad has obtained the stack of Trumps for that appropriate player, it creates a child Triad to "setup" the game: The Create Game Triad:</p><ul><li>Model: Instantiate Game, Set players, Shuffle cards, Deal Cards, Toss Coin.</li><li>View: Welcome and display outcome of game initialisation. </li></ul><p>Next the Create Game Triad signals it is finished and the Root controller destroys that entire triad, replacing it with the Game Triad, which again is a child of the root controller. Due to the complexities of this view it is decomposed into further HMVC triads which are orchestrated by the Game Triad Controller:</p><ul><li>Player Turn VC Triad</li><li>Opponent Turn VC Triad</li><li>Show Result VC Triad</li></ul><p>These are "cut-d0wn" HMVC triads, consisting only a view and a controller. All of the model code however is contained within the higher level Play Game Triad. Messages are passed between components and the Play Game Controller will create and destroy the alternate child Triads as required. Therefore the Play Game Triad looks like this:</p><ul><li>Model: Evaluate winner of turn functionality, Determine if game has been won functionality. </li><li>View- Several View/Controller Triads as above.</li><li>Controller: Manage interactions between all these! Create/Destroy child Triads.</li></ul><p>Finally there is a End Game Triad to display the winner of the game and offer the oppotunity to return to the beginning of the game.</p><ul><li>Model: Send result via RPC (I will actually leave this until the next iteration of the game).</li><li>View: Show End Result.</li><li>Controller: Allow to go back to the start.</li></ul><p>The structure described above will allow me to decompose my code into disgestible modular chunks and also due to the separation of functionality and standardisation of messaging will allow easy modification and improvement later. It won't be a matt of spaghetti.</p><div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/approach.html">approach</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/facebook api.html">facebook api</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/hmvc.html">hmvc</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/java.html">java</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/overlaying-application-flow-onto-hmvc.html" title="permanent link">#</a> posted by Jim Gumbley : 12:58 PM
+         &nbsp;<a href="http://www.blogger.com/comment.g?blogID=431168048244566944&postID=2177542815212916664&isPopup=true" onclick="window.open('http://www.blogger.com/comment.g?blogID=431168048244566944&postID=2177542815212916664&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=2177542815212916664" title="Edit Post"><span class="quick-edit-icon">&nbsp;</span></a></span></div>
+		</div>
+ 
+
+     
+     <a name="9141475632627686626"></a>
+     <h2>
+Application flow</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>Again, with the aim of getting things straight in my mind, here is very rough and broad grained flow chart of how the client will work.<br /><img src="http://www.facebooktrumps.com/img/trumps_app_flow.png" /><div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/facebook api.html">facebook api</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/hmvc.html">hmvc</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/java.html">java</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/application-flow.html" title="permanent link">#</a> posted by Jim Gumbley : 12:34 PM
+         &nbsp;<a href="http://www.blogger.com/comment.g?blogID=431168048244566944&postID=9141475632627686626&isPopup=true" onclick="window.open('http://www.blogger.com/comment.g?blogID=431168048244566944&postID=9141475632627686626&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=9141475632627686626" title="Edit Post"><span class="quick-edit-icon">&nbsp;</span></a></span></div>
+		</div>
+ 
+
+     
+     <a name="282561223299920121"></a>
+     <h2>
+The client/GUI Framework.</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>The model view controller pattern is the classic pattern adopted for GUI and client applications (<a href="http://en.wikipedia.org/wiki/Model-view-controller">http://en.wikipedia.org/wiki/Model-view-controller</a>). <span class="blsp-spelling-error" id="SPELLING_ERROR_0">MVC</span> however, is quite a broad pattern, and so I went in search of further detailed recommendations and architectural <span class="blsp-spelling-corrected" id="SPELLING_ERROR_1">guidance</span>. Luckily, Java seems to be a language which is adopted by people with an interest in software engineering principles, therefore a great many resources are <span class="blsp-spelling-corrected" id="SPELLING_ERROR_2">available</span>.<br /><br />The client component needs to obtain a stack of trumps via RPC, compute the various outcomes in the game, communicate rich perspective on the game state to the user and accept interactions from the user. The most appropriate framework I could find is the HMVC (Hierarchical MVC) which is treated at length here: <a href="http://www.javaworld.com/javaworld/jw-07-2000/jw-0721-hmvc.html">http://www.javaworld.com/javaworld/jw-07-2000/jw-0721-hmvc.html</a>.<br /><br />Following MVC principles the view (GWT Widgets) are delineated from the controller (flow logic) and the model (rpc, game logic). HMVC however fills in some of the gaps with respect to how these elements are composed and structured, and how these elements can communicate amongst one another. The heirarchical aspect allows a root controller encapsulating global concerns (such as the game and the trump stack) to control various children, such as turn screens, scoreboards or outcome views.<br /><br />A concrete and usable example of HMVC is availible here, <a href="http://www.thecentric.com/wiki/index.php/HMVC_Tutorial">tp://www.thecentric.com/wiki/index.php/HMVC_Tutorial</a>, which can easily be adapted to work with GWT.<div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/approach.html">approach</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/facebook api.html">facebook api</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/java.html">java</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/clientgui-framework.html" title="permanent link">#</a> posted by Jim Gumbley : 10:52 AM
+         &nbsp;<a href="http://www.blogger.com/comment.g?blogID=431168048244566944&postID=282561223299920121&isPopup=true" onclick="window.open('http://www.blogger.com/comment.g?blogID=431168048244566944&postID=282561223299920121&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">1 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=282561223299920121" title="Edit Post"><span class="quick-edit-icon">&nbsp;</span></a></span></div>
+		</div>
+ 
+
+     
+          <h3>18 August 2007</h3>
+     
+     <a name="1621434679948721944"></a>
+     <h2>
+Building the next iteration of the Game</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>So far I have:<br /><br /><ol><li>Created a foundation capable of authenticating to the Facebook API, and making extracted data availible to a GWT application.</li><li>Written a routine to, given a set of Facebook friend profiles, return a set of Trump cards - which is to say a set of statistics determined by the underlying profiles for each friend.</li><li>Developed/Stolen/Borrowed a UI framework sufficient for the Facebook Trumps game.</li><li>Created a module which displays a user's Facebook friends, the representation approximating a real playing card.</li><li>Deployed the above to a "live" host rather than a "developmental" one (i.e. webhost rather than my laptop).</li></ol>All of the above is pretty solid, and was so before I started this site. In addition I also have the following:<br /><br /><ul><li>Working but buggy and incomplete Game component.</li></ul><p>Progress on this component has been stalled by a lack of clarity on my own behalf with respect to the two subjects taken up in previous posts. The rules of Trumps and my desire to allow you to play "against" someone, right away.</p><p>Having thought that through, the further steps are as follows:</p><ol><li>Develop module to allow players to play a game of Trumps with a set of cards representing their own friends, vs. a CPU opponent.</li><li>Allow game to post back win/lose to server when done (and persist).</li><li>Deploy to webhost and ensure compatiblity with major browsers.</li><li>Invite people to use and deal with inevitable issues.</li></ol><p>At this point I can start to entertain some of the diversionary thoughts about the future:</p><ol><li>Multiplayer (who's set of cards?)</li><li>Scoreboard.</li><li>Integrate into profile (challenge me! button).</li></ol><div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/approach.html">approach</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/taking-step-back-point-of-this-website.html" title="permanent link">#</a> posted by Jim Gumbley : 12:12 PM
+         &nbsp;<a href="http://www.blogger.com/comment.g?blogID=431168048244566944&postID=1621434679948721944&isPopup=true" onclick="window.open('http://www.blogger.com/comment.g?blogID=431168048244566944&postID=1621434679948721944&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=1621434679948721944" title="Edit Post"><span class="quick-edit-icon">&nbsp;</span></a></span></div>
+		</div>
+ 
+
+     
+     <a name="8331163190519095845"></a>
+     <h2>
+My friends are better than your friends?</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>At first the idea of challenging your friends to a game of Trumps appealed to me. A "My friends are better than yours", "no they're not", "let's prove it!" scenario. This would clearly have some humourous appeal and capture the imagination, however there is tension between this goal, the actual game "Trumps", technical possibilities and the requirements of internet privacy.<br /><br />Playing Trumps "head to head", so far as I can reason, would require the following:<br /><ol><li>Player 1 and Player 2 each have a different set of card representing respective friends.</li><li>The game would need to be remotely multiplayer.</li></ol><p>Just these two things are massively problematic. If Player 1 trumps Player 2, then does Player 1 "gain" that friend from Player 2? Player 1 could then cycle through their entire stack and trump Player 2 with one of Player 2's own cards! Completely undermines the "my friends better" principle.</p><p>What about privacy! Where Player 1 is playing a card who Player 2 is not friends with, or worse has blocked, you are revealing statistics derived from the private part of that friends profile. While the statistics are not going to be greatly revealing this goes against an important principle and most likely breaches the terms of the Facebook API.</p><p>If you were going to challenge someone to a game of "My friends are better than yours" you would want to play live. I will have more to say on this in the future, but the kind of asychoronous messaging system involved in this are beyond what my webhost can provide at present (I would probably need to use Jetty <a href="http://www.mortbay.org/">http://www.mortbay.org/</a> rather than Tomcat, otherwise I would need 1 thread per connection and likely the limited resources provided by my webhost would crash under load). At least for the first iteration of the game I want to play vs. a CPU.</p><p></p><p></p><p></p><p></p><div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/facebook api.html">facebook api</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/multiplayer.html">multiplayer</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/privacy.html">privacy</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/scalability.html">scalability</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/Trumps.html">Trumps</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/my-friends-are-better-than-your-friends.html" title="permanent link">#</a> posted by Jim Gumbley : 11:32 AM
+         &nbsp;<a href="http://www.blogger.com/comment.g?blogID=431168048244566944&postID=8331163190519095845&isPopup=true" onclick="window.open('http://www.blogger.com/comment.g?blogID=431168048244566944&postID=8331163190519095845&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=8331163190519095845" title="Edit Post"><span class="quick-edit-icon">&nbsp;</span></a></span></div>
+		</div>
+ 
+
+     
+     <a name="9074563021124645621"></a>
+     <h2>
+Gameplay, opponents, scoring, and winners.</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>On the face of it Facebook Trumps is a straightforward idea. You play Trumps with cards representing Facebook friends, with statistics derived from thier Facebook profile. When you get into the detail of it, however, to implement it as a computer game, you have to flesh out a bit of the detail.<br /><br />Trumps is a traditional game which has been played for centuries (<a href="http://www.phrases.org.uk/meanings/come-up-trumps.html">http://www.phrases.org.uk/meanings/come-up-trumps.html</a>). It is suggested that "Trump" is a 17th Century abbreviation of "Triumph", plausably- and that reference is made to the game in Shakespeare. The game was played with a traditional set of cards (<a href="http://en.wikipedia.org/wiki/Playing_card">http://en.wikipedia.org/wiki/Playing_card</a>) with one suit being arbitarily declared as the "trump" suit. If two players hold cards of the trump suit the highest card is taken as winner. The game is more familiar when played with a set of statistics. There is more on some of the familiar modern interpretations of Trumps here: <a href="http://www.ultimate-top-trumps.co.uk/">http://www.ultimate-top-trumps.co.uk/</a>, the website of a modern commercial variant of the game, "Top Trumps" is availible here : <a href="http://www.toptrumps.com/">http://www.toptrumps.com/</a>.<br /><br />Broadly, the game is played with a stack of cards where each card displays a set of unique statistical values representing an individual entity- the statistics shown are uniform and comparable between cards. The game begins where the cards are shuffled and dealt between two or more players. A player then takes a turn, selecting the most fortuitous looking statistic on the top card of their own deck. Each other player declares their own value for that statistic, the player with the highest value winning the round. The winner of the round takes the losing cards of all the other players and places them on the bottom of their deck. The next player will then take their turn. You then lose by running out of cards. You win by collecting the entire pack.<div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/Gameplay.html">Gameplay</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/Opponent.html">Opponent</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/Trumps.html">Trumps</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/Winner.html">Winner</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/conventional-trumps-gameplay-opponents.html" title="permanent link">#</a> posted by Jim Gumbley : 10:52 AM
+         &nbsp;<a href="http://www.blogger.com/comment.g?blogID=431168048244566944&postID=9074563021124645621&isPopup=true" onclick="window.open('http://www.blogger.com/comment.g?blogID=431168048244566944&postID=9074563021124645621&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=9074563021124645621" title="Edit Post"><span class="quick-edit-icon">&nbsp;</span></a></span></div>
+		</div>
+ 
+
+     
+          <h3>12 August 2007</h3>
+     
+     <a name="4953071800592607131"></a>
+     <h2>
+Server Side Technologies</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>Java can be used on the server side via a servlet container- I chose <a href="http://tomcat.apache.org/">http://tomcat.apache.org/</a> for the time being, as it is well documented, free and widely used.<div style="clear:both; padding-bottom:0.25em"></div><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/server-side-technologies.html" title="permanent link">#</a> posted by Jim Gumbley : 10:50 PM
+         &nbsp;<a href="http://www.blogger.com/comment.g?blogID=431168048244566944&postID=4953071800592607131&isPopup=true" onclick="window.open('http://www.blogger.com/comment.g?blogID=431168048244566944&postID=4953071800592607131&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=4953071800592607131" title="Edit Post"><span class="quick-edit-icon">&nbsp;</span></a></span></div>
+		</div>
+ 
+
+     
+     <a name="6456275508042523514"></a>
+     <h2>
+The Facebook API</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>Facebook is keen to allow developers to build application on top of Facebook and integrate with their site (<a href="http://developers.facebook.com/">http://developers.facebook.com/</a>). They have a ready made Java client library my application can use as an interface to obtain data and getting a developer key is free of charge. There is an easy web interface on Facebook for managing your application.<br /><br />Facebook applications can operate according to a number of models. Desktop or external web applications can make API calls - given a session has been authenticated via the Facebook site. This is the one extreme of "separateness" from the Facebook site.<br /><br />There is also the option of having you application generate "FBML" (<a href="http://developers.facebook.com/documentation.php?v=1.0&doc=fbml">http://developers.facebook.com/documentation.php?v=1.0&amp;doc=fbml</a>) which is passed to a Facebook server. Facebook then in turn renders this as part of the user's profile screen. This option is perhaps the other extreme, least "separate" from the Facebook site.<br /><br />The third option, which I have adopted, has the application run inside of a "canvas" page (<a href="http://wiki.developers.facebook.com/index.php/Your_callback_page_and_you">http://wiki.developers.facebook.com/index.php/Your_callback_page_and_you</a>). A user who is "on" Facebook follows a link to a specific page within of Facebook. This page appears as a normal Facebook page with menus etc, but contains an IFRAME which dominates the major content area. It is here I shall have the Facebook Trumps application run.<div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/facebook api.html">facebook api</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/java.html">java</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/facebook-api.html" title="permanent link">#</a> posted by Jim Gumbley : 10:49 PM
+         &nbsp;<a href="http://www.blogger.com/comment.g?blogID=431168048244566944&postID=6456275508042523514&isPopup=true" onclick="window.open('http://www.blogger.com/comment.g?blogID=431168048244566944&postID=6456275508042523514&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=6456275508042523514" title="Edit Post"><span class="quick-edit-icon">&nbsp;</span></a></span></div>
+		</div>
+ 
+
+     
+     <a name="8589511600325564304"></a>
+     <h2>
+Client Side Technologies.</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>Facebook Trumps is a game, which would imply quite a great deal of interaction between the user and the web application. For scalability reasons I wanted the client part of the web application, running in the browser, to do a lot of the work. If a HTTP roundtrip is required everytime an action occurs or decision needs to be made my server is going to get very busy.<br /><br />This implies quite a "fat" client, however the option I was anxious to avoid was applets (<a href="http://java.sun.com/applets/">http://java.sun.com/applets/</a>). I've seen some applets which work well - but their major pitfall is that they are basically desktop applications- albeit running in a sandbox spawned "through" a browser. Also you that "clunk" delay as the JVM initialises and the applet loads (that is if the user has a JVM installed!).<br /><br />Much better to my mind is the Google Web Toolkit (<a href="http://code.google.com/webtoolkit/">http://code.google.com/webtoolkit/</a>). GWT allows GUI and other code written in the Java language to be compiled down to Javascript and then run through a browser. This seems an ideal approach for this problem, given that I have decided on Java. Any standards based browser can display the interface created, and yet I can work in the Java language.<div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/applets.html">applets</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/scalability.html">scalability</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/client-side-technologies.html" title="permanent link">#</a> posted by Jim Gumbley : 10:40 PM
+         &nbsp;<a href="http://www.blogger.com/comment.g?blogID=431168048244566944&postID=8589511600325564304&isPopup=true" onclick="window.open('http://www.blogger.com/comment.g?blogID=431168048244566944&postID=8589511600325564304&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=8589511600325564304" title="Edit Post"><span class="quick-edit-icon">&nbsp;</span></a></span></div>
+		</div>
+ 
+
+     
+     <a name="1307163609733435482"></a>
+     <h2>
+Language Choice: Java</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>Plain HTML would not cut it for an interactive Trumps game. Many alternate web technologies exist however, many choices. For the client the instant favorite is Flash (<a href="http://en.wikipedia.org/wiki/Macromedia_Flash">http://en.wikipedia.org/wiki/Macromedia_Flash</a>) and for the server most straightforward would be PHP (<a href="http://en.wikipedia.org/wiki/Php">http://en.wikipedia.org/wiki/Php</a>).<br /><br />I chose Java. Java is a "proper" programming language - it is object oriented, typesafe and it is backed by two massive corporations (<a href="http://java.sun.com/">http://java.sun.com/</a> and <a href="http://www.ibm.com/developerworks/java">http://www.ibm.com/developerworks/java</a>). As I see in my day to day job massive corporations use Java to create complex business systems.<br /><br />Skills gained in this language I believe will have more value than more lightweight languages such as PHP or "designer" oriented packages like Flash. Java is also free, unlike .Net, but very similar both in syntax and architecture (<a href="http://www.google.com/search?q=java+c%23">http://www.google.com/search?q=java+c%23</a>).<br /><br />The real alternate which offered itself was Ruby, or its web component, Rails (<a href="http://www.rubyonrails.org/">http://www.rubyonrails.org/</a>). So many comments about this language rave about it and say how productive it is, and how it encourages you not to reinvent wheels. Both of these arguments are tempting, however for now I feel Java is more established, and for now, a better skill to learn.<div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/.net.html">.net</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/flash.html">flash</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/gwt.html">gwt</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/java.html">java</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/php.html">php</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/platform-choice-java.html" title="permanent link">#</a> posted by Jim Gumbley : 3:59 PM
+         &nbsp;<a href="http://www.blogger.com/comment.g?blogID=431168048244566944&postID=1307163609733435482&isPopup=true" onclick="window.open('http://www.blogger.com/comment.g?blogID=431168048244566944&postID=1307163609733435482&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=1307163609733435482" title="Edit Post"><span class="quick-edit-icon">&nbsp;</span></a></span></div>
+		</div>
+ 
+
+     
+     <a name="8972843379907430472"></a>
+     <h2>
+Platform Choice: The Web</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>The cart here comes slightly before the horse. Strictly, I believe a desktop application would be a more suitable form for a game. The <span class="blsp-spelling-error" id="SPELLING_ERROR_0">Facebook</span> <span class="blsp-spelling-error" id="SPELLING_ERROR_1">API</span>, which is required to access the friends this game is predicated upon, supports desktop applications so this certainly would have been an option.<br /><br />The web, however, is the future- that is plainly how it seems to me. The web primarily is where I should like to gather skills and so I have chosen that this game will be browser based.<br /><br />Other <span class="blsp-spelling-corrected" id="SPELLING_ERROR_2">advantages</span> exist, of course. The game becomes more accessible as the user does not have to download installation packages and run installers. The web has a far greater propensity to allow code to be platform neutral. The game must use the web as its platform.<div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/application.html">application</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/desktop.html">desktop</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/web.html">web</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/platform-choice-web.html" title="permanent link">#</a> posted by Jim Gumbley : 3:52 PM
+         &nbsp;<a href="http://www.blogger.com/comment.g?blogID=431168048244566944&postID=8972843379907430472&isPopup=true" onclick="window.open('http://www.blogger.com/comment.g?blogID=431168048244566944&postID=8972843379907430472&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=8972843379907430472" title="Edit Post"><span class="quick-edit-icon">&nbsp;</span></a></span></div>
+		</div>
+ 
+
+     
+     <a name="7716186029636565376"></a>
+     <h2>
+Sensible Design</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>I'm not a professional programmer, I did some programming at university and am exposed to the consequences of other people's code at work. Making a Trumps game from Facebook friends is not the most complex or difficult thing to do - however I want to do it right; as simple and as sensible as I can.<br /><br />This is for two purposes - First in order that I can finish it, that it does not become lumpen and unmanageable and lead me just to give up - Second to learn, to spend sometime absorbing other people's experiences and hopefully improve my own skills. I want to become a professional programmer, and perhaps this can help.<br /><br />My sources of wisdom, in other words what I have studied, are books blogs and articles from the Internet. O'Reilly have a service called Safari (<a href="http://safari.oreilly.com/">http://safari.oreilly.com/</a>) which I have been able to join. There are masses of software engineering and coding books on there. I have alse been able to follow discussions on usenet (via <a href="http://groups.google.com/">http://groups.google.com/</a>) and application programming discussion websites (such as <a href="http://www.theserverside.com/">http://www.theserverside.com/</a>). Other sources of information include developer blogs and API documents.<div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://www.facebooktrumps.com/labels/approach.html">approach</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/developerworks.html">developerworks</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/o'reilly.html">o'reilly</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/safari.html">safari</a>, <a rel='tag' href="http://www.facebooktrumps.com/labels/serverside.html">serverside</a></p><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/sensible-design.html" title="permanent link">#</a> posted by Jim Gumbley : 2:39 PM
+         &nbsp;<a href="http://www.blogger.com/comment.g?blogID=431168048244566944&postID=7716186029636565376&isPopup=true" onclick="window.open('http://www.blogger.com/comment.g?blogID=431168048244566944&postID=7716186029636565376&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=7716186029636565376" title="Edit Post"><span class="quick-edit-icon">&nbsp;</span></a></span></div>
+		</div>
+ 
+
+     
+          <h3>11 August 2007</h3>
+     
+     <a name="3769188172797286646"></a>
+     <h2>
+Facebook Trumps</h2>
+		<div class="blogPost">
+          <div style="clear:both;"></div>Facebook Trumps is a game which makes use of the Facebook platform. The client part of the game is written in GWT and the backend which queries Facebook is written in Java.<br /><br />I am Jim Gumbley (<a href="http://www.jgumbley.com/">http://www.jgumbley.com/</a>) and have been creating this game for over a month now. This page is intended to support some of the decisions I have made. To actually play the game you need to log into Facebook and add it as an application.<div style="clear:both; padding-bottom:0.25em"></div><br />
+          <div class="byline"><a href="http://www.facebooktrumps.com/2007/08/facebook-trumps_11.html" title="permanent link">#</a> posted by Jim Gumbley : 8:40 AM
+         &nbsp;<a href="http://www.blogger.com/comment.g?blogID=431168048244566944&postID=3769188172797286646&isPopup=true" onclick="window.open('http://www.blogger.com/comment.g?blogID=431168048244566944&postID=3769188172797286646&isPopup=true', 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;"><span style="text-transform:lowercase">0 Comments</span></a>
+ <span class="item-control blog-admin pid-1451491874"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=431168048244566944&postID=3769188172797286646" title="Edit Post"><span class="quick-edit-icon">&nbsp;</span></a></span></div>
+		</div>
+ 
+
+
+</div>
+
+<!-- Sidebar -->
+<div id="sideBar">
+
+<h6>Play Facebook Trumps!</h6>
+<a href="http://www.facebook.com/add.php?api_key=942e1ed844d740f0241265fb4e92764d"><img src="http://www.facebooktrumps.com/img/trumpcard.gif"></a>
+<p>Log into Facebook and add the game as an application!</p>
+
+<h6>Archives</h6>
+<ul>
+ <li><a href='http://www.facebooktrumps.com/2007_08_01_archive.html'>August 2007</a></li><li><a href='http://www.facebooktrumps.com/2007_09_01_archive.html'>September 2007</a></li><li><a href='http://www.facebooktrumps.com/2007_10_01_archive.html'>October 2007</a></li><li><a href='http://www.facebooktrumps.com/2007_11_01_archive.html'>November 2007</a></li> 
+ <script type="text/javascript" language="Javascript">if (location.href.indexOf("archive")!=-1) document.write("<li><strong><a href=\"http://www.facebooktrumps.com/\">Current Posts</a></strong></li>");</script>
+</ul>
+
+</div>
+
+
+</body>
+</html>
